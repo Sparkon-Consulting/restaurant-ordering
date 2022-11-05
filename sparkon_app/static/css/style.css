@@ -880,4 +880,58 @@ border: 2px solid #fff;
 	-webkit-animation-delay: 1.2s; 
 }
 
+#wrap {
+	width: 750px;
+	height: 1000px;
+	padding: 0;
+	overflow: overlay;
+	margin-left: auto;
+	margin-right: auto;
+  }
+  
+  /* #scaled-frame {
+	width: 400px;
+	height: 2000px;
+	border: 0px;
+  }
+  
+  #scaled-frame {
+	zoom: 0.1;
+	-moz-transform: scale(0.75);
+	-moz-transform-origin: 0 0;
+	-o-transform: scale(0.75);
+	-o-transform-origin: 0 0;
+	-webkit-transform: scale(0.75);
+	-webkit-transform-origin: 0 0;
+  } */
+  
+  /* @media screen and (-webkit-min-device-pixel-ratio:0) {
+	#scaled-frame {
+	  zoom: 1;
+	}
+  } */
+
+  @media only screen and (max-width: 600px){
+	#scaled-frame {
+		zoom: 1;
+		-moz-transform: scale(0.75);
+		-moz-transform-origin: 0 0;
+		-o-transform: scale(0.75);
+		-o-transform-origin: 0 0;
+		-webkit-transform: scale(0.75);
+		-webkit-transform-origin: 0 0;
+		width: 400px;
+		height: 2000px;
+		border: 0px;
+	}
+  }
+
+
+  @media screen and (min-width: 1000px){
+	#scaled-frame {
+	  zoom: 1;
+	  width: 1000px;
+	  height: 2000px;
+	}
+  }
 
