@@ -69,4 +69,4 @@ of disability. We are proudly owned and operated by a Submarine Service Veteran 
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
