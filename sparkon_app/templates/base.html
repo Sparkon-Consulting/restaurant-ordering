@@ -28,6 +28,8 @@
 <script type="text/javascript" src="{{url_for('static', filename='js/classie.js')}}"></script>
 <script src="{{url_for('static', filename='contactform/contactform.js')}}"></script>
 
+
+
 <!-- =======================================================
     Theme Name: Knight
     Theme URL: https://bootstrapmade.com/knight-free-bootstrap-theme/
@@ -59,6 +61,7 @@
             <li class="small-logo"><a href="#header"><img src="{{url_for('static', filename='img/small-logo.png')}}" alt=""></a></li>
             <li><a href="{{url_for('contact')}}">Contact Us</a></li>
             <li><a href="{{url_for('aboutus')}}">About Us</a></li>
+            <li><a href="{{url_for('support')}}">Request Support</a></li>
         </ul>
         <a class="res-nav_click" href="#"><i class="fa-bars"></i></a>
     </div>
@@ -69,17 +72,7 @@
 {% endblock %}
 
 
-<div class="container">
-<section class="main-section contact" id="contact">
-	 <div id="wrap">
-        <iframe id="scaled-frame" class="wraps" src='https://outlook.office365.com/owa/calendar/Consultation@sparkonconsulting.com/bookings/' scrolling='yes'></iframe>
-    </div>
-        
-            
-        
-        
-</section>
-</div>
+
 <footer class="footer">
     <div class="container">
         <div class="footer-logo"><a href="#"><img src="{{url_for('static', filename='img/footer-logo (2).png')}}" alt=""></a></div>
