@@ -3,16 +3,6 @@ from . import app
 
 import smtplib
 import os
-def send_email(name, email, message, subject):
-    yahoopass = os.environ.get('MAIL_PASSWORD')
-    my_email = os.environ.get('MAIL_USERNAME')
-    server = os.environ.get('MAIL_SERVER')
-    business_email = os.environ.get('BUSINESS_EMAIL')
-    with smtplib.SMTP(server, port = 587) as connection:
-        connection.starttls()
-        connection.login(user = my_email, password = yahoopass)
-        connection.sendmail(from_addr = my_email, to_addrs = business_email, msg = f"Subject: {subject}\n\n{name}\n{email} has sent you a message:\n\n{message}")
-
 
 @app.route("/")
 def home():
@@ -29,21 +19,16 @@ def contact():
 @app.route("/portfolio")
 def portfolio():
     return render_template('portfolio.html')
+@app.route("/request-for-support")
+def support():
+    return render_template('request-for-support.html')
 
 @app.route("/services")
 def services():
     return render_template('services.html')
 
-@app.route("/message-sent", methods = ['GET','POST'])
-def send_message():
-    if request.method == 'POST':
-        name = request.form.get('name')
-        email = request.form.get('email')
-        message = request.form.get('message')
-        subject = request.form.get('subject')
-        send_email(name, email, message, subject)
-        return render_template('messagesent.html',message='Message sent!')
-    return render_template('contact.html')
+
+
 
 alicia_about = '''
 Hi y'all, I have been coding in Python for the last 3 years and have fallen in love with technology
