@@ -71,7 +71,20 @@
  
 {% endblock %}
 
+<button
+  class="stripe-button"
+  data-amount="1000"
+  data-currency="usd"
+  data-description="Example Product"
+  
+  data-name="Example Product"
+  data-panel-label="Buy Now"
+  data-product-id="prod_NQJ6vYreNw7IRf"
+>
+  Buy Now
+</button>
 
+<script src="https://checkout.stripe.com/checkout.js"></script>
 
 <footer class="footer">
     <div class="container">
