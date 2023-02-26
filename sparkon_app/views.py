@@ -1,57 +1,54 @@
-from flask import Flask, render_template, url_for, request, redirect, flash, session
-from . import app
-
-import smtplib
+# Import necessary libraries and set up Flask app
+from flask import Flask, render_template, request, redirect
+import stripe
 import os
 
-@app.route("/")
-def home():
-    return render_template('index.html',alicia_about=alicia_about,silent_partner_about=silent_partner_about)
+app = Flask(__name__)
+app.secret_key = os.environ.get('SECRET_KEY', 'super-secret-key')
+stripe.api_key = ''
 
-@app.route("/aboutus")
-def aboutus():
-    return render_template('aboutus.html',about_us=about_us)
+# Define routes
+@app.route('/')
+def menu():
+    # Display menu items
+    menu_items = [
+        {'name': 'Pizza', 'price': 10000},
+        {'name': 'Burger', 'price': 8.00},
+        {'name': 'Salad', 'price': 6.00},
+        # add more menu items as needed
+    ]
+    return render_template('menu.html', menu_items=menu_items)
 
-@app.route("/contact")
-def contact():
-    return render_template('contact.html')
+@app.route('/order/<item_name>/<item_price>')
+def order(item_name,item_price):
+    # Display order form for selected item
+    return render_template('order.html', item_name=item_name,item_price=item_price)
 
-@app.route("/portfolio")
-def portfolio():
-    return render_template('portfolio.html')
-@app.route("/request-for-support")
-def support():
-    return render_template('request-for-support.html')
+@app.route('/charge', methods=['POST'])
+def charge():
+    # Process payment using Stripe
+    item_name = request.form['item_name']
+    amount = request.form['amount']
+    
 
-@app.route("/services")
-def services():
-    return render_template('services.html')
+    customer = stripe.Customer.create(email=request.form['stripeEmail'], source=request.form['stripeToken'])
+    charge = stripe.Charge.create(
+        customer=customer.id,
+        amount=amount,
+        currency='usd',
+        description='Order for ' + item_name
+    )
+    # Mark order as fulfilled
+    # Send notification to customer
+    return redirect('/status')
 
+@app.route('/status')
+def status():
+    # Display order status
+    return render_template('status.html')
 
+# Set up websockets to listen for Stripe notifications
+# When an order is fulfilled, push notification to customer's browser
 
-
-alicia_about = '''
-Hi y'all, I have been coding in Python for the last 3 years and have fallen in love with technology
-and the endless possibilities it offers. My goals are to enable others to truly leverage technology
-to make their lives easier and more efficient.
-'''
-
-silent_partner_about = '''
-Hello everyone I am a silent partner in this venture. I am an active engineer for 
-a big tech company and have over 10 years of experience in the field. I look forward to helping
-small businesses and individuals to leverage technology to optimize workflows and save time and money.
-'''
-
-about_us = '''
-Hi everyone, we are a team of three engineers who have a passion for technology and helping others.
-We initially started this venture as a clothing company to help spread awareness of Autism since our son is on the spectrum, who is 
-non-verbal and constantly misunderstood. We have since expanded our offerings to include technology services because of our passion to help others.
-Ultimately our goal is to provide FREE services and lessons to individuals and families who are on the spectrum or have some other form
-of disability. We are proudly owned and operated by a Submarine Service Veteran out of the great state of Texas.
-'''
-
-
-
-
-if __name__ == "__main__":
-    app.run()
+if __name__ == '__main__':
+    app.run(debug=True)

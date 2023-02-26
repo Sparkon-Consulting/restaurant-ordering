@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Menu</title>
+</head>
+<body>
+	{% for item in menu_items %}
+		<h2>{{ item.name }} - ${{ item.price }}</h2>
+		<a href="/order/{{ item.name }}/{{ item.price }}">Order</a>
+	{% endfor %}
+</body>
+</html>

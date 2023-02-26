@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Order {{ item_name }}</title>
+	<script src="https://checkout.stripe.com/checkout.js"></script>
+</head>
+<body>
+	<h2>Order {{ item_name }}</h2>
+	<form action="/charge" method="POST">
+		<input type="hidden" name="item_name" value="{{ item_name }}">
+		<input type="hidden" name="amount" value="{{ item_price }}">
+		<input type="email" name="stripeEmail" placeholder="Email">
+		<script
+			src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+			data-key=""
+			data-amount="{{ item_price }}"
+			data-name="My Restaurant"
+			data-description="Order for {{ item_name }}"
+			data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+			data-locale="auto"
+			data-currency="usd">
+		</script>
+	</form>
+</body>
+</html>
